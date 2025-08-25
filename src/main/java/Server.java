@@ -5,6 +5,7 @@ import java.util.*;
 public class Server {
 
     static void publishMessage(String data, Socket client, ArrayList<Socket> userList) throws IOException {
+
         for (Socket socket : userList) {
             if (socket != client) {
                 DataOutputStream output = new DataOutputStream((socket.getOutputStream()));
@@ -22,6 +23,8 @@ public class Server {
 
         while (true) {
             data = input.readUTF();
+            int client_id = userList.indexOf(client);
+            data = "Client "+ client_id + " : " +data;
             System.out.println(data);
             publishMessage(data, client, userList);
 
